@@ -4,7 +4,8 @@
 
 
 var redis = require('redis');
-var client = redis.createClient();
+//var client = redis.createClient();
+var client = require('redis').createClient(6379, "news.wcekgc.0001.usw2.cache.amazonaws.com");
 var india = require('../models/india');
 var worldnews = require('../models/worldnews');
 var science = require('../models/science');
