@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link rel="stylesheet" href="/stylesheets/about.css">
+    <link rel="stylesheet" href="/stylesheets/bootstraplight.min.css">
+</head>
+<body style="font-family: 'Courier New'">
+<div>
+    <div style="margin-top:3%;margin-left:2%">
+
+        <a href="/">
+            <div class="menu-icon back-arrow">
+
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </a>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div id="heading">
+        <div style="text-align: center;">
+            <h1 style="font-family: 'Courier New'">Why make this?</h1>
+        </div>
+
+        <hr style="width:75%">
+
+        <p align="justify">
+            The idea behind the app is that there is a truck load of news articles written every day. Some have real
+            information while many are just clickbaity headlines with just fluff in them.
+        </p>
+        <p align="justify">
+            The first problem is what to actually read among these news articles. Instead of spending finding articles
+            to
+            read, the app presents you curated articles popular on the web with a good amount of discussion already in
+            place
+            about the event.
+        </p>
+        <p align="justify">
+            The second problem is the content. Its not always desirable to read the entire article when there are only a
+            couple of points of importance in the article. Except for long form articles, a couple of points from the
+            article are sufficient to get a gist of the article. The app presents a series of key points from the
+            article
+            generated automatically using summarizing algorithms.
+        </p>
+    </div>
+
+    <br>
+
+    <div id="tech" style="text-align:center;">
+        <h1 style="font-family: 'Courier New';">What made this?</h1>
+        <hr style="width:75%">
+
+        <p align="justify">
+            A Python script supervised by supervisord on the server instance runs 24x7 aggregating popular news articles
+            from the
+            web. It summarizes the articles and adds it to a mongoDB collection. The script can be found here.
+        </p>
+
+        <p align="justify">
+            The server runs on Node.js with a process manager PM2. It responds to API calls with JSON data. This part is
+            the backend and is completely decoupled from the application (frontend) that you are "seeing". So in essence
+            it doesn't care where the data is being sent, it could be a website (like now) or a mobile app (added to
+            TODO) or even a microwave (hey, you never know).
+        </p>
+
+        <p align="justify">
+            The server also has redis. redis is an in-memory database, which is basically database in RAM. We use this
+            as a cache, as the data isn't that volatile. redis has data structures in database, so we create a hashmap
+            and store our data in it using a combination of category and page number as key. We also run a script to
+            flush this hashmap every hour else it will never be updated. The result is instead of 50 milliseconds to
+            serve one request, the server takes 5 milliseconds at maximum. (not that the server is that busy, but why
+            not?)
+        </p>
+
+        <p align="justify">
+            Next is AngularJS which is responsible for the single page application. Notice except this page, there are
+            no redirects on the website. For each category and page number there are separate API calls returning JSON
+            which
+            is displayed on the template.
+        </p>
+
+    </div>
+
+    <br>
+
+    <div id="salmaan" style="text-align: center">
+        <h1 style="font-family: 'Courier New'">Who made this?</h1>
+
+        <hr style="width:75%">
+        <p align="justify">
+            Salmaan is a graduate student at San Jose State University studying software engineering.
+        </p>
+        <p align="justify">Find more about him and his projects at his <a href="http://www.salmaan.me">website</a> or
+            using
+            the following social media buttons<sup id="egg"
+                                                   onmouseover="document.getElementById('hidden').style.display = 'block';"
+                                                   onmouseout="document.getElementById('hidden').style.display = 'none';">*</sup>,
+            <span id="hidden" style="display:none;font-size:small;">Psst, he's also looking for internships</span></p>
+
+
+        <ul class="social-buttons">
+            <li id="demo1">
+                <a href="https://www.twitter.com/Salmaaan" class="brandico-twitter-bird"></a>
+            </li>
+            <li id="demo2">
+                <a href="https://www.facebook.com/salmaanpehlari" class="brandico-facebook"></a>
+            </li>
+            <li id="demo3">
+                <a href="https://www.github.com/salmaanP" class="brandico-github"></a>
+            </li>
+            <li id="demo3">
+                <a href="https://www.linkedin.com/in/salmaanP" class="brandico-linkedin"></a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+</html>

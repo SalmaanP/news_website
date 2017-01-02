@@ -1,0 +1,96 @@
+.loader{
+    margin: 0 0 2em;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    /*align-self: center;*/
+    padding: 1em;
+    margin: 0 auto 1em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*
+  Set the color of the icon
+*/
+svg path,
+svg rect{
+    fill: #FF6700;
+}
+
+.my-arrow {
+    display: block;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    float: left;
+    cursor: pointer;
+}
+.my-arrow:hover:after {
+    border-color: #026073;
+}
+.my-arrow:after {
+    content: '';
+    background: none;
+    width: 66.6px;
+    height: 66.6px;
+    position: absolute;
+    z-index: 1;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+}
+.my-arrow-top:after {
+    border-top: 5px solid #FF6049;
+    border-right: 5px solid #FF6049;
+    right: 14.16666667px;
+    top: 30.83333333px;
+}
+.my-arrow-top:after {
+    -webkit-top-right-border-radius: 10px;
+    -moz-top-right-border-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.my-arrow-right:after {
+    border-right: 5px solid #FF6049;
+    border-bottom: 5px solid #FF6049;
+    bottom: 14.16666667px;
+    right: 30.83333333px;
+}
+.my-arrow-right:after {
+    -webkit-bottom-right-border-radius: 10px;
+    -moz-bottom-right-border-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.my-arrow-bottom:after {
+    border-bottom: 5px solid #FF6049;
+    border-left: 5px solid #FF6049;
+    left: 14.16666667px;
+    bottom: 30.83333333px;
+}
+.my-arrow-bottom:after {
+    -webkit-bottom-left-border-radius: 10px;
+    -moz-bottom-left-border-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.my-arrow-left:after {
+    border-left: 5px solid #FF6049;
+    border-top: 5px solid #FF6049;
+    top: 14.16666667px;
+    left: 30.83333333px;
+}
+.my-arrow-left:after {
+    -webkit-top-left-border-radius: 10px;
+    -moz-top-left-border-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.demo {
+    margin: 100px auto;
+    width: 400px;
+}
+
+
+
+
