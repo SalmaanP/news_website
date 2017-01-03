@@ -122,7 +122,7 @@ exports.search = function (request, response) {
         });
     } else {
         console.log("redis not connected");
-        fetchSearch(collection, searchString, redisKey, request, response);
+        fetchSearch(collection, searchString, redisKey, pageNo, request, response);
 
     }
 
