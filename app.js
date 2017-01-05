@@ -34,6 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', render.index);
+app.get('/worldnews.php', render.index);
 app.get('/about', render.about);
 app.get('/getData/:category/:pageNo', controller.getData);
 app.post('/search', controller.search);
