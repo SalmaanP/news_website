@@ -42,14 +42,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', render.index);
-app.get('/worldnews.php', render.index);
 app.get('/about', render.about);
-app.get('/getData/:category/:pageNo', controller.getData);
 app.post('/search', controller.search);
-app.get('/search/:searchString/:category/:pageNo', controller.newSearch);
-app.post('/saved', controller.saved);
-app.get('/setSession/:theme', controller.setSession);
 app.use('/users', users);
+app.get('/search/:searchString/:category/:pageNo', controller.newSearch);
+app.get('/getData/:category/:pageNo', controller.getData);
+app.get('/setSession/:theme', controller.setSession);
+app.get('/worldnews.php', render.index);
+
+
+app.post('/saved', controller.saved);
+
+app.get('/:category', render.index);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

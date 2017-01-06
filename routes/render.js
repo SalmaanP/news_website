@@ -11,12 +11,44 @@ exports.about = function(request, response){
 
 exports.index = function(request, response){
 
+    var theme = "";
+    var category = "";
+    if(request.session.theme === 'dark'){
+        theme = 'dark';
+    }
+    else if(request.session.theme == 'light'){
+        theme ='light';
+    }
+    else{
+        theme ='light';
+    }
 
-    if(request.session.theme === 'dark')
-        response.render('index', {theme: 'dark'});
-    else if(request.session.theme == 'light')
-        response.render('index', {theme: 'light'});
-    else
-        response.render('index', {theme: 'light'});
+    category = getCategory(String(request.params.category).toLowerCase());
+    console.log(category);
+    response.render('index', {theme: theme, category: category});
 };
 
+
+function getCategory(category) {
+    var Category = "";
+    switch (category) {
+
+        case 'india':
+            Category = 'india';
+            break;
+        case 'worldnews':
+            Category = 'worldnews';
+            break;
+        case 'science':
+            Category = 'science';
+            break;
+        case 'technology':
+            Category = 'technology';
+            break;
+        default:
+            Category = 'worldnews';
+            break;
+    }
+
+    return Category;
+}

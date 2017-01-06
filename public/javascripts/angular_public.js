@@ -7,7 +7,7 @@ var app = angular.module('app', ['angular.filter']);
 app.controller('content_controller', function ($scope, $http) {
 
     $scope.content = [];
-    $scope.category = 'worldnews';
+    $scope.category = window.category;
     $scope.pageNo = 1;
     $scope.hasContent = false;
     $scope.loading = true;
@@ -76,10 +76,10 @@ app.controller('content_controller', function ($scope, $http) {
     };
 
     $scope.init = function () {
-        $scope.getData('worldnews', 1);
+        $scope.getData(window.category, 1);
         $scope.modalTitle = "Hey There!";
-        $scope.modalDomain = "Thanks!";
-        $scope.modalKeypoints = ["Not so fast!", "I've taken care of this!"];
+        $scope.modalDomain = "Thanks for visiting!";
+        $scope.modalKeypoints = ["Share this website if you like it!", "Any feedback is appreciated!"];
         $scope.modalPermalink = "http://salmaan.me";
         $scope.modalUrl = "http://salmaan.me";
     };

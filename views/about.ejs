@@ -12,10 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
 
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
         ga('create', 'UA-77295764-3', 'auto');
         ga('send', 'pageview');
@@ -53,7 +60,8 @@
             information while many are just clickbaity headlines with just fluff in them.
         </p>
         <p align="justify">
-            The first problem is what to actually read among these news articles. Instead of spending time finding articles
+            The first problem is what to actually read among these news articles. Instead of spending time finding
+            articles
             to
             read, the app presents you curated articles popular on the web with a good amount of discussion already in
             place
@@ -75,9 +83,10 @@
         <hr style="width:75%">
 
         <p align="justify">
-            A Python script supervised by supervisord on the server instance runs 24x7 aggregating popular news articles
+            A Python script as a daemon on the server instance runs 24x7 aggregating popular news articles
             from the
-            web. It summarizes the articles and adds it to a mongoDB collection. The script can be found <a href="https://github.com/SalmaanP/news_backend">here</a>.
+            web. It summarizes the articles and adds it to a mongoDB collection. The script can be found <a
+                    href="https://github.com/SalmaanP/news_backend">here</a>.
         </p>
 
         <p align="justify">
@@ -138,11 +147,44 @@
         </ul>
     </div>
 
+    <br>
+
+    <div id="changelog">
+
+        <h1 style="text-align:center; font-family: 'Courier New'">Changelog</h1>
+
+        <hr style="width:75%">
+
+        <div >
+            <p> v1.0 - Jan 4th, 2017 </p>
+            <div style="margin-left:2%">
+                <p>- Launched! </p>
+            </div>
+            <p> v1.1 - Jan 5th, 2017 </p>
+            <div style="margin-left:2%">
+                <p> - Can search through multiple pages. </p>
+                <p> - Theme persists on reload. </p>
+                <p> - Added routing. </p>
+                 - Current routes are: <a href="/worldnews">&#47;worldnews</a>,
+                <a href="/technology" target="_blank">&#47;technology</a>,
+                <a href="/science" target="_blank">&#47;science</a>,
+                <a href="/india" target="_blank">&#47;india</a>
+                <p></p>
+            </div>
+            <p>TODO:</p>
+            <div style="margin-left:2%">
+                <p> - Add RSS Feeds </p>
+                <p> - Tweak UI </p>
+            </div>
+        </div>
+
+
+    </div>
+
 </div>
 
 
 </body>
-
 
 
 </html>
