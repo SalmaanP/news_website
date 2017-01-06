@@ -83,6 +83,58 @@ exports.getData = function (request, response) {
 
 };
 
+exports.newSearch = function(request, response){
+
+
+    var category = String(request.params.category).toLowerCase();
+    var pageNo = parseInt(request.params.pageNo);
+    var searchString = String(request.params.searchString).toLowerCase();
+
+    if (pageNo < 1) {
+        response.status(400);
+        response.end("Invalid Parameters!!");
+        return;
+    }
+
+    pageNo -= 1;
+
+    var collection = getCategory(category);
+
+    if (!collection) {
+        response.status(400);
+        response.end("Invalid Request");
+        return;
+    }
+
+    var redisKey = String(category) + String(searchString) + String(pageNo);
+
+    if (client.connected) {
+
+        client.hget("search", redisKey, function (err, result) {
+
+            if (result) {
+                console.log("New Search from redis");
+                // obj=JSON.parse(result);
+                response.end(result);
+                return;
+            }
+
+            if (err || !result) {
+                if (err)
+                    console.log(err);
+                console.log("redis error or none in new search");
+                fetchNewSearch(collection, searchString, redisKey, pageNo, request, response);
+            }
+
+        });
+    } else {
+        console.log("new search redis not connected");
+        fetchNewSearch(collection, searchString, redisKey, pageNo, request, response);
+
+    }
+
+};
+
 exports.search = function (request, response) {
 
     var category = request.body.category;
@@ -175,6 +227,28 @@ function fetchSearch(collection, searchString, redisKey, pageNo, request, respon
 
 }
 
+function fetchNewSearch(collection, searchString, redisKey, pageNo, request, response) {
+
+    collection
+        .find({'article_text': {$regex: searchString, $options: 'i'}})
+        .sort({'date_added': -1, "score": -1})
+        .skip(pageNo * 18)
+        .limit(18)
+        .exec(function (err, res) {
+
+            if (!err) {
+                client.hmset("search", redisKey, JSON.stringify(res), redis.print);
+                response.send(JSON.stringify(res));
+            } else {
+                console.log(err);
+                response.status(500);
+                response.end();
+            }
+        });
+
+
+}
+
 function fetchSaved(collection, idArray, request, response){
 
     collection
@@ -190,6 +264,18 @@ function fetchSaved(collection, idArray, request, response){
         });
 
 }
+
+
+exports.setSession = function(request, response){
+
+    var theme = String(request.params.theme).toLowerCase();
+    if(theme === 'dark')
+        request.session.theme = 'dark';
+    else if(theme === 'light')
+        request.session.theme = 'light';
+    response.end();
+
+};
 
 function getCategory(category) {
     switch (category) {

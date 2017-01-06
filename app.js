@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('client-sessions');
 
 require('./routes/config');
 
@@ -14,6 +15,13 @@ var render = require('./routes/render');
 var controller = require('./routes/controller');
 
 var app = express();
+
+app.use(session({
+    cookieName : 'session',
+    secret : ' ',
+    duration : 1000 * 60 * 60 * 24 * 30,
+    activeDuration : 1000 * 60 * 24 * 30
+}));
 
 
 setInterval(function(){
@@ -38,7 +46,9 @@ app.get('/worldnews.php', render.index);
 app.get('/about', render.about);
 app.get('/getData/:category/:pageNo', controller.getData);
 app.post('/search', controller.search);
+app.get('/search/:searchString/:category/:pageNo', controller.newSearch);
 app.post('/saved', controller.saved);
+app.get('/setSession/:theme', controller.setSession);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

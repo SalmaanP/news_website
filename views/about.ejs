@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <title>About</title>
     <link rel="stylesheet" href="/stylesheets/about.css">
-    <link rel="stylesheet" href="/stylesheets/bootstraplight.min.css">
+    <% if(theme === 'light'){ %>
+    <link id="csstheme" href="/stylesheets/bootstraplight.min.css" rel="stylesheet">
+    <% } else{ %>
+    <link id="csstheme" href="/stylesheets/bootstrapdark.min.css" rel="stylesheet">
+    <% } %>
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
 
     <script>

@@ -11,7 +11,18 @@ app.controller('content_controller', function ($scope, $http) {
     $scope.pageNo = 1;
     $scope.hasContent = false;
     $scope.loading = true;
+    $scope.isSearch = false;
+    $scope.searchString = '';
 
+    $scope.pagination = function(isSearch, category, pageNo, searchString, right){
+
+        if(isSearch){
+            $scope.search(category, searchString, pageNo);
+        } else {
+            $scope.getData(category, pageNo, right);
+        }
+
+    };
 
     $scope.getData = function (category, pageNo, right) {
 
@@ -25,6 +36,7 @@ app.controller('content_controller', function ($scope, $http) {
 
                     console.log(res);
                     $scope.content = res.data;
+                    $scope.isSearch = false;
 
                     if ($scope.category != category) {
                         $('#jumbotron').removeClass('animated lightSpeedIn').addClass('animated lightSpeedIn').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
@@ -88,14 +100,17 @@ app.controller('content_controller', function ($scope, $http) {
 
         $scope.loading = true;
         $scope.pageNo = pageNo;
+        $scope.category = category;
+        $scope.searchString = searchString;
+
         console.log(category, searchString);
         $http({
-            method: 'POST',
-            url: '/search',
-            data: {"category": category, "searchString": searchString}
+            method: 'get',
+            url: '/search/' + searchString + '/' + category + '/' + pageNo
         })
             .then(function (res) {
                     console.log(res);
+                    $scope.isSearch = true;
                     $scope.content = res.data;
                     $scope.category = category;
                     $scope.NumContent = $scope.content.length;
@@ -123,6 +138,23 @@ app.controller('content_controller', function ($scope, $http) {
         eval('$scope.navbar_' + category + ' = "active"');
     }
 
+    $scope.setTheme = function(theme){
+
+        if(theme === 'dark'){
+            document.getElementById('csstheme').href = "stylesheets/bootstrapdark.min.css";
+        } else if(theme === 'light'){
+            document.getElementById('csstheme').href = "stylesheets/bootstraplight.min.css";
+        }
+
+        $http({
+            method: 'GET',
+            url: '/setSession/'+theme
+        })
+            .then(function(res){
+                console.log('done');
+            })
+
+    };
 
     console.log('ok');
 
