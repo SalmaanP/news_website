@@ -49,8 +49,8 @@ app.get('/search/:searchString/:category/:pageNo', controller.newSearch);
 app.get('/getData/:category/:pageNo', controller.getData);
 app.get('/setSession/:theme', controller.setSession);
 app.get('/worldnews.php', render.index);
-
-
+app.get('/article/*/*', render.article);
+app.get('/getArticle/:category/:articleId', controller.getArticle);
 app.post('/saved', controller.saved);
 
 app.get('/:category', render.index);

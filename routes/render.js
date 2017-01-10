@@ -28,6 +28,24 @@ exports.index = function(request, response){
     response.render('index', {theme: theme, category: category});
 };
 
+exports.article = function(request, response){
+
+    var theme = "";
+
+    if(request.session.theme === 'dark'){
+        theme = 'dark';
+    }
+    else if(request.session.theme == 'light'){
+        theme ='light';
+    }
+    else{
+        theme ='light';
+    }
+
+    response.render('article', {theme: theme});
+
+
+};
 
 function getCategory(category) {
     var Category = "";

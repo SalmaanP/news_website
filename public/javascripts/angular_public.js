@@ -159,3 +159,67 @@ app.controller('content_controller', function ($scope, $http) {
     console.log('ok');
 
 });
+
+app.controller('article_controller', function($scope, $http){
+
+    $scope.loading = true;
+    $scope.hasContent = false;
+    $scope.init = function(){
+
+        var pathname = window.location.pathname;
+        var category = pathname.split('/')[2];
+        var articleId = pathname.split('/')[3];
+        eval('$scope.navbar_' + category + ' = "active"');
+
+
+        $http({
+            method: 'GET',
+            url: '/getArticle/'+category+'/'+articleId
+        })
+            .then(function(res){
+
+                if(res.data != 'null'){
+                    console.log(res.data);
+                    $scope.hasContent = true;
+                    $scope.articleTitle = res.data.title;
+                    $scope.articleURL = res.data.url;
+                    $scope.articleDate = res.data.date_added;
+                    $scope.articleDomain = res.data.domain;
+                    $scope.articleKeypoints = res.data.keypoints;
+                    $scope.articleRedditURL = res.data.permalink;
+                    $scope.articleNumRedditComments = res.data.num_comments;
+                    $scope.articleRedditScore = res.data.score;
+                    $scope.articleSummary = res.data.summary;
+                    $scope.loading = false;
+
+                } else{
+                    $scope.hasContent = false;
+                    $scope.loading = false;
+                }
+
+            })
+
+    };
+
+
+    $scope.setTheme = function(theme){
+
+        if(theme === 'dark'){
+            document.getElementById('csstheme').href = "/stylesheets/bootstrapdark.min.css";
+        } else if(theme === 'light'){
+            document.getElementById('csstheme').href = "/stylesheets/bootstraplight.min.css";
+        }
+
+        $http({
+            method: 'GET',
+            url: '/setSession/'+theme
+        })
+            .then(function(res){
+                console.log('done');
+            })
+
+    };
+
+
+
+});

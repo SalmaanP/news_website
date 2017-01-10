@@ -15,6 +15,11 @@
     <meta name="author" content="Salmaan Pehlari">
     <meta name="revisit-after" content="1 day">
     <meta name="language" content="english">
+    <meta property="og:url"           content="http://www.fastnews.me" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Fast News!" />
+    <meta property="og:description"   content="Fast News gives you summarized news from the most popular and relevant news articles aggregated from the web in real time just for you." />
+    <!--<meta property="og:image"         content="http://www.your-domain.com/path/image.jpg" />-->
 
     <link rel="stylesheet" href="/stylesheets/jquery.remodal.css">
 
@@ -24,15 +29,21 @@
     <link id="csstheme" href="/stylesheets/bootstrapdark.min.css" rel="stylesheet">
     <% } %>
 
-
     <link href="/stylesheets/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
         ga('create', 'UA-77295764-3', 'auto');
         ga('send', 'pageview');
@@ -40,13 +51,10 @@
     </script>
 
 
-
 </head>
 
-<script>category="<%=category%>";</script>
+<script>category = "<%= category %>";</script>
 <body ng-controller="content_controller" ng-init="init()">
-
-
 
 
 <!--NAVBAR-->
@@ -69,20 +77,21 @@
                 <div class="form-group"><input type="text" placeholder="Search" ng-model="searchString"
                                                class="form-control" name="submit">
                 </div>
-                <button ng-click="search(category, searchString, 1)" type="submit" class="btn btn-default">Search</button>
+                <button ng-click="search(category, searchString, 1)" type="submit" class="btn btn-default">Search
+                </button>
 
             </form>
         </ul>
         <ul class="nav navbar-nav navbar-right">
 
             <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings<strong-->
-                            <!--class="caret"></strong></a>-->
-                <!--<ul class="dropdown-menu">-->
-                    <!--<li><a href="#">Preferences</a></li>-->
-                    <!--<li><a href="index.php?page=0">Saved Articles</a></li>-->
-                    <!--<li class="divider"></li>-->
-                    <!--<li><a href="#">Help/About</a></li>-->
-                <!--</ul>-->
+            <!--class="caret"></strong></a>-->
+            <!--<ul class="dropdown-menu">-->
+            <!--<li><a href="#">Preferences</a></li>-->
+            <!--<li><a href="index.php?page=0">Saved Articles</a></li>-->
+            <!--<li class="divider"></li>-->
+            <!--<li><a href="#">Help/About</a></li>-->
+            <!--</ul>-->
             <!--</li>-->
 
             <li><a href="/about">About</a></li>
@@ -124,23 +133,24 @@
 <div id="mainContent" class="container" ng-show="hasContent && !loading">
 
     <!--<ul class="pager">-->
-        <!--<div class="row clearfix">-->
-            <!--<div class="col-md-6 column" align="left" ng-if="pageNo > 1">-->
-                <!--<li><a href="#nav" ng-click="getData(category, pageNo-1, 'right')">Prev</a></li>-->
+    <!--<div class="row clearfix">-->
+    <!--<div class="col-md-6 column" align="left" ng-if="pageNo > 1">-->
+    <!--<li><a href="#nav" ng-click="getData(category, pageNo-1, 'right')">Prev</a></li>-->
 
 
-            <!--</div>-->
-            <!--<div class="col-md-6 column" align="right" ng-if="NumRows != 0">-->
-                <!--<li><a href="#nav" ng-click="getData(category, pageNo+1)">Next</a></li>-->
+    <!--</div>-->
+    <!--<div class="col-md-6 column" align="right" ng-if="NumRows != 0">-->
+    <!--<li><a href="#nav" ng-click="getData(category, pageNo+1)">Next</a></li>-->
 
-            <!--</div>-->
-        <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</ul>-->
 
     <ul class="pager">
         <div class="row clearfix">
             <div class="col-md-6 column" align="left" ng-if="pageNo > 1">
-                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo-1, searchString, 'right')">Prev</a></li>
+                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo-1, searchString, 'right')">Prev</a>
+                </li>
 
             </div>
             <div class="col-md-6 column" align="right" ng-if="NumRows != 0">
@@ -150,17 +160,36 @@
     </ul>
 
 
-
     <div class="row clearfix" ng-repeat="row in content track by $index" ng-if="$index % 3 == 0">
 
         <div class="col-md-4 column" ng-repeat="item in [$index, $index + 1, $index + 2]" ng-if="content[item] != null">
 
-            <h1 ><a ng-bind="(content[item].title | limitTo: 70) + (content[item].title .length > 70 ? '...' : '')" ng-href="{{content[item].url}}"
-                   style="overflow: hidden;text-overflow: ellipsis;text-decoration:none; color:inherit;" target="_blank">
+            <h1><a ng-bind="(content[item].title | limitTo: 70) + (content[item].title .length > 70 ? '...' : '')"
+                   ng-href="{{content[item].url}}"
+                   style="overflow: hidden;text-overflow: ellipsis;text-decoration:none; color:inherit;"
+                   target="_blank">
                     <!--TITLE-->
                 </a></h1>
             <p align="justify" ng-bind="content[item].summary"><!--Summary--></p>
-            <p><a class="btn btn-success btn-large" ng-click="clicked(item)" href="#1">Read Keypoints</a></p>
+            <div class="btn-group">
+                <a class="btn btn-success btn-large" ng-click="clicked(item)" href="#1">Read Keypoints</a>
+                <a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span
+                            class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a target="_blank" ng-href="/article/{{category}}/{{content[item].reddit_id}}">Open in new
+                            tab</a></li>
+                    <li><a target="_blank"
+                           ng-href="https://twitter.com/intent/tweet?text=Check out this news summary on http://www.fastnews.me/article/{{category}}/{{content[item].reddit_id}}">Tweet This!</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.fastnews.me%2Farticle%2F{{category}}%2F{{content[item].reddit_id}}&amp;src=sdkpreparse">Share on Facebook!</a>
+                        <!--<a target="_blank" ng-href="https://www.facebook.com/sharer/sharer.php?u=http://www.fastnews.me/article/{{category}}/{{content[item].reddit_id}}&amp;src=sdkpreparse">Share on Facebook!</a>-->
+                    </li>
+
+                    <li class="divider"></li>
+                    <li><a target="_blank" ng-href="{{content[item].permalink}}">View Reddit Comments</a></li>
+                </ul>
+            </div>
 
 
         </div>
@@ -169,11 +198,11 @@
     </div>
 
 
-
     <ul class="pager">
         <div class="row clearfix">
             <div class="col-md-6 column" align="left" ng-if="pageNo > 1">
-                    <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo-1, searchString, 'right')">Prev</a></li>
+                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo-1, searchString, 'right')">Prev</a>
+                </li>
 
             </div>
             <div class="col-md-6 column" align="right" ng-if="NumRows != 0">
@@ -183,33 +212,33 @@
     </ul>
 
 
-
-
 </div>
 
 <!--Loader-->
 <div class="container" ng-show="loading">
 
     <div class="loader loader--style5" title="4">
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             x="0px" y="0px"
+             width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;"
+             xml:space="preserve">
     <rect x="0" y="0" width="4" height="10" fill="#333">
         <animateTransform attributeType="xml"
                           attributeName="transform" type="translate"
                           values="0 0; 0 20; 0 0"
-                          begin="0" dur="0.6s" repeatCount="indefinite" />
+                          begin="0" dur="0.6s" repeatCount="indefinite"/>
     </rect>
             <rect x="10" y="0" width="4" height="10" fill="#333">
                 <animateTransform attributeType="xml"
                                   attributeName="transform" type="translate"
                                   values="0 0; 0 20; 0 0"
-                                  begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+                                  begin="0.2s" dur="0.6s" repeatCount="indefinite"/>
             </rect>
             <rect x="20" y="0" width="4" height="10" fill="#333">
                 <animateTransform attributeType="xml"
                                   attributeName="transform" type="translate"
                                   values="0 0; 0 20; 0 0"
-                                  begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+                                  begin="0.4s" dur="0.6s" repeatCount="indefinite"/>
             </rect>
   </svg>
     </div>
@@ -258,22 +287,22 @@
 
 <!--Footer-->
 <div class="container">
-<footer style="margin-top:5%;">
-    <div class="row clearfix">
+    <footer style="margin-top:5%;">
+        <div class="row clearfix">
 
-        <div class="col-md-8" align="left">
-            App by <a href="http://salmaan.me">Salmaan Pehlari</a> is a News Aggregator
-            and Summarizer made just for you.
+            <div class="col-md-8" align="left">
+                App by <a href="http://salmaan.me">Salmaan Pehlari</a> is a News Aggregator
+                and Summarizer made just for you.
+
+            </div>
+            <div class="col-md-4" align="right">
+                Contact him at salmaanpehlari[at]gmail[dot]com.
+                <p><a href="/about#changelog" target="_blank">Changelog</a></p>
+                <br><br>
+            </div>
 
         </div>
-        <div class="col-md-4" align="right">
-            Contact him at salmaanpehlari[at]gmail[dot]com.
-            <p><a href="/about#changelog" target="_blank">Changelog</a></p>
-            <br><br>
-        </div>
-
-    </div>
-</footer>
+    </footer>
 </div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>

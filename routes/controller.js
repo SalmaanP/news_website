@@ -25,6 +25,7 @@ exports.redisCron = function () {
 
     client.expireat("news", 0);
     client.expireat("search", 0);
+    client.expireat("articles", 0);
 
 };
 
@@ -276,6 +277,74 @@ exports.setSession = function(request, response){
     response.end();
 
 };
+
+
+exports.getArticle = function(request, response){
+
+    var category = String(request.params.category).toLowerCase();
+    var articleId = String(request.params.articleId).toLowerCase();
+
+
+    var collection = getCategory(category);
+
+    if (!collection) {
+        response.status(400);
+        response.end("Invalid Request");
+        return;
+    }
+
+    var redisKey = String(category) + "/" + String(articleId);
+
+    if (client.connected) {
+
+        client.hget("articles", redisKey, function (err, result) {
+
+            if (result) {
+                console.log("New Search from redis");
+                // obj=JSON.parse(result);
+                response.end(result);
+                return;
+            }
+
+            if (err || !result) {
+                if (err)
+                    console.log(err);
+                console.log("redis error or none in new search");
+
+                fetchArticle(collection, articleId, redisKey, request, response);
+
+            }
+
+        });
+    } else {
+        console.log("new search redis not connected");
+        fetchArticle(collection, articleId, redisKey, request, response);
+
+    }
+
+
+
+};
+
+function fetchArticle(collection ,articleId, redisKey, request, response){
+
+    collection
+        .findOne({'reddit_id': articleId})
+        .exec(function (err, res) {
+
+            if (!err) {
+                client.hmset("articles", redisKey, JSON.stringify(res), redis.print);
+                response.send(JSON.stringify(res));
+            } else {
+                console.log(err);
+                response.status(500);
+                response.end();
+            }
+        });
+
+
+}
+
 
 function getCategory(category) {
     switch (category) {
