@@ -132,20 +132,20 @@
         </div>
         <meta itemprop="description" content="{{articleSummary}}">
         <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-            <meta itemprop="url" content="/images/logo.png">
+            <meta itemprop="url" content="http://www.fastnews.me/logo">
             <meta itemprop="width" content="800">
             <meta itemprop="height" content="800">
         </div>
         <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
             <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                <meta itemprop="url" content="/images/logo.png">
+                <meta itemprop="url" content="http://www.fastnews.me/logo">
                 <meta itemprop="width" content="600">
                 <meta itemprop="height" content="60">
             </div>
             <meta itemprop="name" content="{{articleDomain}}">
         </div>
-        <meta itemprop="datePublished" content="{{articleDate}}"/>
-        <meta itemprop="dateModified" content="{{articleDate}}"/>
+        <meta itemprop="datePublished" content="{{articleDate | date:'yyyy-MM-ddTHH:mm:ssZ'}}"/>
+        <meta itemprop="dateModified" content="{{articleDate | date:'yyyy-MM-ddTHH:mm:ssZ'}}"/>
 
     </div>
     <div style="text-align: center" id="articleHeading">

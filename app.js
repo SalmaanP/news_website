@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('client-sessions');
+var fs = require('fs');
 
 require('./routes/config');
 
@@ -41,6 +42,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/logo', function(request, response){
+    fs.readFile('public/images/logo.png', function(err, data){
+        console.log(err);
+        response.writeHead(200, {'Content-Type': 'image/jpeg'});
+        response.end(data);
+    });
+
+});
+
 app.get('/', render.index);
 app.get('/about', render.about);
 app.post('/search', controller.search);
@@ -52,7 +62,6 @@ app.get('/worldnews.php', render.index);
 app.get('/article/*/*', render.article);
 app.get('/getArticle/:category/:articleId', controller.getArticle);
 app.post('/saved', controller.saved);
-
 app.get('/:category', render.index);
 
 
