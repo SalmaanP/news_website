@@ -177,7 +177,6 @@
         <div class="col-md-4 column" ng-repeat="item in [$index, $index + 1, $index + 2]" ng-if="content[item] != null">
 
             <div itemscope itemtype="http://schema.org/NewsArticle">
-                <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://google.com/article"/>
                 <meta itemprop="headline" content="{{content[item].title}}">
                 <div itemprop="author" itemscope itemtype="https://schema.org/Person">
                     <meta itemprop="name" content="{{content[item].domain}}">
