@@ -50,11 +50,23 @@
 
     </script>
 
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": "Fast News",
+        "alternateName": "News!",
+        "url": "http://www.fastnews.me"
+    }
+    </script>
+
 
 </head>
 
 <script>category = "<%= category %>";</script>
 <body ng-controller="content_controller" ng-init="init()">
+
+
 
 
 <!--NAVBAR-->
@@ -163,6 +175,32 @@
     <div class="row clearfix" ng-repeat="row in content track by $index" ng-if="$index % 3 == 0">
 
         <div class="col-md-4 column" ng-repeat="item in [$index, $index + 1, $index + 2]" ng-if="content[item] != null">
+
+            <div itemscope itemtype="http://schema.org/NewsArticle">
+                <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://google.com/article"/>
+                <meta itemprop="headline" content="{{content[item].title}}">
+                <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <meta itemprop="name" content="{{content[item].domain}}">
+                </div>
+                <meta itemprop="description" content="{{content[item].summary}}">
+                <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                    <meta itemprop="url" content="/images/logo.png">
+                    <meta itemprop="width" content="800">
+                    <meta itemprop="height" content="800">
+                </div>
+                <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="url" content="/images/logo.png">
+                        <meta itemprop="width" content="600">
+                        <meta itemprop="height" content="60">
+                    </div>
+                    <meta itemprop="name" content="{{content[item].domain}}">
+                </div>
+                <meta itemprop="datePublished" content="{{content[item].date_added}}"/>
+                <meta itemprop="dateModified" content="{{content[item].date_added}}"/>
+
+            </div>
+
 
             <h1><a ng-bind="(content[item].title | limitTo: 70) + (content[item].title .length > 70 ? '...' : '')"
                    ng-href="{{content[item].url}}"
