@@ -1,10 +1,11 @@
 /**
  * Created by Salmaan on 12/21/2016.
  */
-
+var secret = require('../routes/secret');
 var mongoose = require('mongoose');
 var gracefulShutdown;
-var dbURI = 'mongodb://localhost/samacharbot2';
+
+var dbURI = secret.db_uri;
 
 
 mongoose.Promise = global.Promise;
