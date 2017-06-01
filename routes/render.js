@@ -47,6 +47,23 @@ exports.article = function(request, response){
 
 };
 
+exports.unitedstates = function(request, response){
+
+    var theme = "";
+    var category = "news";
+    if(request.session.theme === 'dark'){
+        theme = 'dark';
+    }
+    else if(request.session.theme == 'light'){
+        theme ='light';
+    }
+    else{
+        theme ='light';
+    }
+
+    response.render('index', {theme: theme, category: category});
+};
+
 function getCategory(category) {
     var Category = "";
     switch (category) {
@@ -62,6 +79,24 @@ function getCategory(category) {
             break;
         case 'technology':
             Category = 'technology';
+            break;
+        case 'canada':
+            Category = 'canada';
+            break;
+        case 'china':
+            Category = 'china';
+            break;
+        case 'europe':
+            Category = 'europe';
+            break;
+        case 'news':
+            Category = 'news';
+            break;
+        case 'unitedkingdom':
+            Category = 'unitedkingdom';
+            break;
+        case 'upliftingnews':
+            Category = 'upliftingnews';
             break;
         default:
             Category = 'worldnews';

@@ -15,15 +15,16 @@
     <meta name="author" content="Salmaan Pehlari">
     <meta name="revisit-after" content="1 day">
     <meta name="language" content="english">
-    <meta property="og:url"           content="http://www.fastnews.me" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="Fast News!" />
-    <meta property="og:description"   content="Fast News gives you summarized news from the most popular and relevant news articles aggregated from the web in real time just for you." />
+    <meta property="og:url" content="http://www.fastnews.me"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Fast News!"/>
+    <meta property="og:description"
+          content="Fast News gives you summarized news from the most popular and relevant news articles aggregated from the web in real time just for you."/>
     <!--<meta property="og:image"         content="http://www.your-domain.com/path/image.jpg" />-->
-    <meta property="og:image" content="http://fastnews.me/logo" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="800" />
-    <meta property="og:image:height" content="800" />
+    <meta property="og:image" content="http://fastnews.me/logo"/>
+    <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:width" content="800"/>
+    <meta property="og:image:height" content="800"/>
 
     <link rel="stylesheet" href="/stylesheets/jquery.remodal.css">
 
@@ -62,6 +63,7 @@
         "alternateName": "News!",
         "url": "http://www.fastnews.me"
     }
+
     </script>
 
 
@@ -71,56 +73,75 @@
 <body ng-controller="content_controller" ng-init="init()">
 
 
-
-
 <!--NAVBAR-->
 <nav id="nav" class="navbar navbar-inverse" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
-                    class="icon-bar"></span><span class="icon-bar"></span></button>
-        <a class="navbar-brand" href="/">News!</a></div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
 
-            <li ng-class="navbar_worldnews"><a ng-click="getData('worldnews', 1)" href="">World</a></li>
-            <li ng-class="navbar_technology"><a ng-click="getData('technology', 1)" href="">Technology</a></li>
-            <li ng-class="navbar_science"><a ng-click="getData('science', 1)" href="">Science</a></li>
-            <li ng-class="navbar_india"><a ng-click="getData('india', 1)" href="">India</a></li>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+            <a class="navbar-brand" href="/">News!</a></div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+            <ul class="nav navbar-nav">
 
-            <form class="navbar-form navbar-left" role="search">
+                <li ng-class="navbar_worldnews"><a ng-click="getData('worldnews', 1)" href="">World</a></li>
+                <li ng-class="navbar_news"><a ng-click="getData('news', 1)" href="">United States</a></li>
+                <li ng-class="navbar_india"><a ng-click="getData('india', 1)" href="">India</a></li>
+                <li ng-class="navbar_unitedkingdom"><a ng-click="getData('unitedkingdom', 1)" href="">United Kingdom</a></li>
+                <li ng-class="dropdownClass">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span ng-bind="dropdownText"></span> <strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li ng-class="navbar_europe"><a ng-click="getData('europe', 1)" href="">Europe</a></li>
+                        <li ng-class="navbar_canada"><a ng-click="getData('canada', 1)" href="">Canada</a></li>
+                        <li ng-class="navbar_china"><a ng-click="getData('china', 1)" href="">China</a></li>
+                        <li ng-class="navbar_science"><a ng-click="getData('science', 1)" href="">Science</a></li>
+                        <li ng-class="navbar_technology"><a ng-click="getData('technology', 1)" href="">Technology</a></li>
+                        <li ng-class="navbar_upliftingnews"><a ng-click="getData('upliftingnews', 1)"
+                                                               href="">Uplifting</a></li>
+                    </ul>
+                </li>
+<li>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="input-group" style="max-width: 80%">
+                        <input style="width:100%" type="text" placeholder="Search" ng-model="searchString"
+                               class="form-control" name="submit">
+                        <div class="input-group-btn">
+                            <button ng-click="search(category, searchString, 1)" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div></div>
+                </form>
+</li>
+            </ul>
 
-                <div class="form-group"><input type="text" placeholder="Search" ng-model="searchString"
-                                               class="form-control" name="submit">
-                </div>
-                <button ng-click="search(category, searchString, 1)" type="submit" class="btn btn-default">Search
-                </button>
 
-            </form>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
 
-            <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings<strong-->
-            <!--class="caret"></strong></a>-->
-            <!--<ul class="dropdown-menu">-->
-            <!--<li><a href="#">Preferences</a></li>-->
-            <!--<li><a href="index.php?page=0">Saved Articles</a></li>-->
-            <!--<li class="divider"></li>-->
-            <!--<li><a href="#">Help/About</a></li>-->
-            <!--</ul>-->
-            <!--</li>-->
+            <ul class="nav navbar-nav navbar-right">
 
-            <li><a href="/about">About</a></li>
+                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings<strong-->
+                <!--class="caret"></strong></a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="#">Preferences</a></li>-->
+                <!--<li><a href="index.php?page=0">Saved Articles</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a href="#">Help/About</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
 
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Theme<strong
-                            class="caret"></strong></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#" ng-click="setTheme('light')">Light</a></li>
-                    <li><a href="#" ng-click="setTheme('dark')">Dark</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+                <li><a href="/about">About</a></li>
+
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Theme<strong
+                                class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" ng-click="setTheme('light')">Light</a></li>
+                        <li><a href="#" ng-click="setTheme('dark')">Dark</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
 </nav>
 
 
@@ -165,12 +186,12 @@
     <ul class="pager">
         <div class="row clearfix">
             <div class="col-md-6 column" align="left" ng-if="pageNo > 1">
-                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo-1, searchString, 'right')">Prev</a>
+                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo-1, searchString, 'right')">Newer</a>
                 </li>
 
             </div>
             <div class="col-md-6 column" align="right" ng-if="NumRows != 0">
-                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo+1, searchString)">Next</a></li>
+                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo+1, searchString)">Older</a></li>
             </div>
         </div>
     </ul>
@@ -220,10 +241,13 @@
                     <li><a target="_blank" ng-href="/article/{{category}}/{{content[item].reddit_id}}">Open in new
                             tab</a></li>
                     <li><a target="_blank"
-                           ng-href="https://twitter.com/intent/tweet?text=Check out this news summary on http://www.fastnews.me/article/{{category}}/{{content[item].reddit_id}}">Tweet This!</a>
+                           ng-href="https://twitter.com/intent/tweet?text=Check out this news summary on http://www.fastnews.me/article/{{category}}/{{content[item].reddit_id}}">Tweet
+                            This!</a>
                     </li>
                     <li>
-                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.fastnews.me%2Farticle%2F{{category}}%2F{{content[item].reddit_id}}&amp;src=sdkpreparse">Share on Facebook!</a>
+                        <a target="_blank"
+                           href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.fastnews.me%2Farticle%2F{{category}}%2F{{content[item].reddit_id}}&amp;src=sdkpreparse">Share
+                            on Facebook!</a>
                         <!--<a target="_blank" ng-href="https://www.facebook.com/sharer/sharer.php?u=http://www.fastnews.me/article/{{category}}/{{content[item].reddit_id}}&amp;src=sdkpreparse">Share on Facebook!</a>-->
                     </li>
 
@@ -242,12 +266,12 @@
     <ul class="pager">
         <div class="row clearfix">
             <div class="col-md-6 column" align="left" ng-if="pageNo > 1">
-                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo-1, searchString, 'right')">Prev</a>
+                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo-1, searchString, 'right')">Newer</a>
                 </li>
 
             </div>
             <div class="col-md-6 column" align="right" ng-if="NumRows != 0">
-                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo+1, searchString)">Next</a></li>
+                <li><a href="#nav" ng-click="pagination(isSearch, category, pageNo+1, searchString)">Older</a></li>
             </div>
         </div>
     </ul>
@@ -319,7 +343,7 @@
         <br><br>
         <div class="row clearfix">
             <div class="col-md-6 column" align="left"><a target="_blank"
-                                                         ng-href="{{modalPermalink}}">View {{modalNoComments}}
+                                                         ng-href="{{modalPermalink}}">View {{modalNumComments}}
                     Reddit Comments</a></div>
 
         </div>
@@ -362,7 +386,6 @@
         document.getElementById('csstheme').href = "stylesheets/bootstrapdark.min.css";
     }
 </script>
-
 
 
 </body>

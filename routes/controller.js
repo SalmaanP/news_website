@@ -10,6 +10,12 @@ var india = require('../models/india');
 var worldnews = require('../models/worldnews');
 var science = require('../models/science');
 var technology = require('../models/technology');
+var news = require('../models/news');
+var canada = require('../models/canada');
+var europe = require('../models/europe');
+var china = require('../models/china');
+var unitedkingdom = require('../models/unitedkingdom');
+var upliftingnews = require('../models/upliftingnews');
 
 client.on('ready', function () {
 
@@ -136,6 +142,12 @@ exports.newSearch = function(request, response){
 
 };
 
+
+/**
+ * @param request       Request Object
+ * @param request.body      Request Content
+ * @param response      Response Object
+ */
 exports.search = function (request, response) {
 
     var category = request.body.category;
@@ -181,11 +193,11 @@ exports.search = function (request, response) {
 
 };
 
-exports.saved = function(request, response){
-
-    fetchSaved()
-
-};
+// exports.saved = function(request, response){
+//
+//     fetchSaved()
+//
+// };
 
 function fetchData(collection, pageNo, redisKey, request, response) {
 
@@ -347,6 +359,8 @@ function fetchArticle(collection ,articleId, redisKey, request, response){
 
 
 function getCategory(category) {
+    var collection;
+
     switch (category) {
 
         case 'india':
@@ -361,6 +375,24 @@ function getCategory(category) {
         case 'technology':
             collection = technology;
             break;
+        case 'news':
+            collection = news;
+            break;
+        case 'canada':
+            collection = canada;
+            break;
+        case 'unitedkingdom':
+            collection = unitedkingdom;
+            break;
+        case 'europe':
+            collection = europe;
+            break;
+        case 'china':
+            collection = china;
+            break;
+        case 'upliftingnews':
+            collection = upliftingnews;
+            break;
         default:
             collection = null;
             break;
@@ -368,4 +400,3 @@ function getCategory(category) {
 
     return collection;
 }
-

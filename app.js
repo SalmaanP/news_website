@@ -53,6 +53,7 @@ app.get('/logo', function(request, response){
 
 app.get('/', render.index);
 app.get('/about', render.about);
+app.get('/unitedstates', render.unitedstates);
 app.post('/search', controller.search);
 app.use('/users', users);
 app.get('/search/:searchString/:category/:pageNo', controller.newSearch);
@@ -61,7 +62,7 @@ app.get('/setSession/:theme', controller.setSession);
 app.get('/worldnews.php', render.index);
 app.get('/article/*/*', render.article);
 app.get('/getArticle/:category/:articleId', controller.getArticle);
-app.post('/saved', controller.saved);
+//app.post('/saved', controller.saved);
 app.get('/:category', render.index);
 
 

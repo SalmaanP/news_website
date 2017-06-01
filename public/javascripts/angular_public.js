@@ -13,6 +13,7 @@ app.controller('content_controller', function ($scope, $http) {
     $scope.loading = true;
     $scope.isSearch = false;
     $scope.searchString = '';
+    $scope.inDropdown = false;
 
     $scope.pagination = function(isSearch, category, pageNo, searchString, right){
 
@@ -45,6 +46,19 @@ app.controller('content_controller', function ($scope, $http) {
                     }
 
                     $scope.category = category;
+                    if(category == 'worldnews' || category ==  'india' ||  category == 'unitedkingdom' || category ==  'news'){
+                        $scope.dropdownText = 'More ';
+                        $scope.inDropdown = false;
+                        $scope.dropdownClass = "dropdown"
+                    } else {
+                        if(category == 'upliftingnews')
+                            $scope.dropdownText= 'Uplifting';
+                        else
+                            $scope.dropdownText = String(category).charAt(0).toUpperCase() + category.slice(1);
+                        $scope.inDropdown = true;
+                        $scope.dropdownClass = "dropdown active"
+                    }
+
                     $scope.pageNo = pageNo;
                     $scope.NumContent = $scope.content.length;
                     $scope.NumRows = Array.apply(null, new Array(Math.ceil($scope.NumContent / 3))).map(function (x, i) {
@@ -52,7 +66,6 @@ app.controller('content_controller', function ($scope, $http) {
                     });
                     changeClass(category);
                     $scope.hasContent = $scope.NumContent > 0;
-
 
                     if (!right) {
                         $('#mainContent').removeClass('animated slideInLeft').addClass('animated slideInLeft').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
@@ -64,6 +77,10 @@ app.controller('content_controller', function ($scope, $http) {
                         });
                     }
 
+                    if(category == 'news')
+                        history.pushState(null, 'Fast News!', 'unitedstates');
+                    else
+                        history.pushState(null, 'Fast News!', category);
 
                 }
                 , function (err) {
@@ -135,8 +152,15 @@ app.controller('content_controller', function ($scope, $http) {
         $scope.navbar_worldnews = "";
         $scope.navbar_technology = "";
         $scope.navbar_science = "";
+        $scope.navbar_canada = "";
+        $scope.navbar_china = "";
+        $scope.navbar_europe = "";
+        $scope.navbar_news = "";
+        $scope.navbar_unitedkingdom = "";
+        $scope.navbar_upliftingnews = "";
         eval('$scope.navbar_' + category + ' = "active"');
     }
+
 
     $scope.setTheme = function(theme){
 
@@ -156,18 +180,32 @@ app.controller('content_controller', function ($scope, $http) {
 
     };
 
-    console.log('ok');
-
 });
 
 app.controller('article_controller', function($scope, $http){
 
     $scope.loading = true;
     $scope.hasContent = false;
+    $scope.inDropdown = false;
+
     $scope.init = function(){
 
         var pathname = window.location.pathname;
         var category = pathname.split('/')[2];
+
+        if(category == 'worldnews' || category ==  'india' ||  category == 'unitedkingdom' || category ==  'news'){
+            $scope.dropdownText = 'More ';
+            $scope.inDropdown = false;
+            $scope.dropdownClass = "dropdown"
+        } else {
+            if(category == 'upliftingnews')
+                $scope.dropdownText= 'Uplifting';
+            else
+                $scope.dropdownText = String(category).charAt(0).toUpperCase() + category.slice(1);
+            $scope.inDropdown = true;
+            $scope.dropdownClass = "dropdown active"
+        }
+
         var articleId = pathname.split('/')[3];
         eval('$scope.navbar_' + category + ' = "active"');
 
